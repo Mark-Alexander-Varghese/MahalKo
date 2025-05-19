@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Reasons to Choose My Heart 💖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .music-player {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            color: white;
+            cursor: pointer;
+        }
+
+        .slider-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 70%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+
+        .hearts {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            width: 100%;
+            height: 100%;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 3s linear forwards;
+            opacity: 0.7;
+        }
+
+        h1 {
+            color: #ff0066;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px #fff;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        .nav-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #ff0066;
+            transform: scale(1.3);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .emoji {
+            font-size: 3em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .love-button {
+            background: #ff0066;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .love-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255,0,102,0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="music-player">
+        <i class="fas fa-music"></i>
+        <audio id="bg-music" loop>
+            <!-- Replace with your actual music file -->
+            <source src="love_song.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <div class="hearts" id="hearts-container"></div>
+
+    <div class="slider-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="emoji">💕</div>
+            <h1>Reason 1: Eternal Laughter</h1>
+            <p>I promise to fill your days with giggles and my terrible dad jokes!</p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="emoji">🤗</div>
+            <h1>Reason 2: Professional Cuddler</h1>
+            <p>24/7 snuggles with bonus head scratches included!</p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="emoji">🌟</div>
+            <h1>Reason 3: Your Biggest Fan</h1>
+            <p>I'll cheer for you louder than anyone else in the universe!</p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="emoji">🌍</div>
+            <h1>Reason 4: Adventure Partner</h1>
+            <p>From lazy Sundays to spontaneous trips - let's do it all!</p>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <div class="emoji">💘</div>
+            <h1>Reason 5: Unconditional Love</h1>
+            <p>I'll love every version of you - today, tomorrow, forever</p>
+            <button class="love-button">Will You Be Mine?</button>
+        </div>
+    </div>
+
+    <div class="nav-dots">
+        <div class="nav-dot active"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+        <div class="nav-dot"></div>
+    </div>
+
+    <script>
+        // Music control
+        const music = document.getElementById('bg-music');
+        document.querySelector('.music-player').addEventListener('click', () => {
+            music.play();
+            document.querySelector('.fa-music').style.color = '#ff0066';
+        });
+
+        // Slide logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.nav-dot');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index));
+        });
+
+        // Auto-advance slides every 8 seconds
+        setInterval(() => showSlide(currentSlide + 1), 8000);
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // Generate hearts periodically
+        setInterval(createHeart, 300);
+
+        // Love button effect
+        document.querySelector('.love-button')?.addEventListener('click', () => {
+            alert("Yay! 💖 Let's create beautiful memories together!");
+            for(let i = 0; i < 50; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+        });
+    </script>
+</body>
+</html>
